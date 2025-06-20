@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import logo from "../assets/logo-lightbrown.png"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,7 +18,7 @@ const Header = () => {
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) {
-      const yOffset = -80; // Adjust this if header height changes
+      const yOffset = -80;
       const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
       setIsMenuOpen(false);
@@ -43,17 +44,23 @@ const Header = () => {
 
       {/* Main Navbar */}
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo */}
+        {/* Logo and Title */}
         <motion.div
           whileTap={{ scale: 0.95 }}
           onClick={() => scrollToSection('home')}
           className="flex items-center gap-3 cursor-pointer"
         >
-          <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-full flex items-center justify-center shadow-md">
-            <span className="text-white font-extrabold text-2xl">H</span>
+          {/* Replace H with image logo */}
+          <div className=" h-14 overflow-hidden shadow-md ">
+            <img
+              src={logo} // Replace with your actual logo path
+              alt="Heera Divine Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
+
           <div>
-            <h1 className="text-3xl font-extrabold text-white leading-tight">The Heera Divine</h1>
+            <h1 className="text-3xl font-semibold tracking-wide  text-white font-sans leading-tight">THE HEERA DIVINE</h1>
             <p className="text-sm text-gray-300 -mt-1">Luxury Hotel & Resort</p>
           </div>
         </motion.div>

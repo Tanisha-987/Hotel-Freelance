@@ -40,10 +40,10 @@ const Hero = () => {
             initial={{ opacity: 0, y: -50 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 1 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
+            className="text-4xl md:text-7xl tracking-wide font-semibold mb-6"
           >
             Welcome to
-            <span className="block text-amber-400">The Heera Divine</span>
+            <span className="block font-bold tracking-wide text-amber-400">The Heera Divine</span>
           </motion.h1>
 
           <motion.p 
