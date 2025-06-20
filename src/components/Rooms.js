@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Wifi, Car, Coffee, Tv, Bath, Users, Heart, Star, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Wifi, Car, Coffee, Tv, Bath, Users, Heart, Star, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const RoomDetailsModal = ({ room, onClose }) => {
@@ -22,7 +22,7 @@ const RoomDetailsModal = ({ room, onClose }) => {
         <div className="p-6">
           <h2 className="text-2xl font-semibold mb-2">{room.name}</h2>
           <p className="text-gray-600 mb-2">{room.description}</p>
-          
+
           <div className="flex items-center text-sm text-gray-700 mb-3">
             <Users className="mr-2" size={16} /> {room.capacity}
             <Star className="ml-4 mr-1" size={16} color="orange" fill="orange" /> {room.rating}
@@ -53,6 +53,7 @@ const RoomDetailsModal = ({ room, onClose }) => {
 const Rooms = () => {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [likedRooms, setLikedRooms] = useState([]);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     document.body.style.overflow = selectedRoom ? 'hidden' : 'auto';
@@ -66,6 +67,14 @@ const Rooms = () => {
     }
   };
 
+  const scrollLeft = () => {
+    scrollRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+  };
+
   const rooms = [
     {
       id: 1,
@@ -74,7 +83,7 @@ const Rooms = () => {
       image: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800",
       amenities: ["Free WiFi", "AC", "TV", "Room Service"],
       capacity: "2 Adults",
-      description: "Comfortable and elegant room with modern amenities for a perfect stay.",
+      description: "Comfortable and elegant room with modern amenities.",
       rating: 4.8
     },
     {
@@ -84,7 +93,7 @@ const Rooms = () => {
       image: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800",
       amenities: ["Free WiFi", "AC", "TV", "Mini Bar", "Balcony"],
       capacity: "2-3 Adults",
-      description: "Spacious suite with separate living area and premium amenities.",
+      description: "Spacious suite with premium amenities.",
       rating: 4.9
     },
     {
@@ -94,7 +103,47 @@ const Rooms = () => {
       image: "https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=800",
       amenities: ["Free WiFi", "Jacuzzi", "TV", "Room Service"],
       capacity: "2 Adults",
-      description: "Premium room with a king-sized bed, luxurious Jacuzzi and elegant decor.",
+      description: "King-sized bed, luxurious Jacuzzi and decor.",
+      rating: 5.0
+    },
+    {
+      id: 4,
+      name: "Superior Room",
+      price: "₹4,200",
+      image: "https://images.pexels.com/photos/261395/pexels-photo-261395.jpeg?auto=compress&cs=tinysrgb&w=800",
+      amenities: ["Free WiFi", "AC", "TV"],
+      capacity: "2 Adults",
+      description: "Modern decor and elegant furniture.",
+      rating: 4.6
+    },
+    {
+      id: 5,
+      name: "Junior Suite",
+      price: "₹6,000",
+      image: "https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=800",
+      amenities: ["Free WiFi", "Balcony", "TV", "Mini Bar"],
+      capacity: "3 Adults",
+      description: "Ideal for small families, includes balcony.",
+      rating: 4.7
+    },
+    {
+      id: 6,
+      name: "Premium Twin Room",
+      price: "₹3,800",
+      image: "https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=800",
+      amenities: ["Free WiFi", "TV", "Twin Beds"],
+      capacity: "2 Adults",
+      description: "Best for friends or coworkers traveling together.",
+      rating: 4.5
+    },
+    {
+      id: 7,
+      name: "Royal Suite",
+      price: "₹9,500",
+      image: "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800",
+      amenities: ["Jacuzzi", "Mini Bar", "Balcony", "Free WiFi"],
+      capacity: "2-4 Adults",
+      description: "Top-tier suite with royal treatment and luxury.",
       rating: 5.0
     }
   ];
@@ -119,13 +168,13 @@ const Rooms = () => {
   const selectedRoomData = rooms.find(room => room.id === selectedRoom);
 
   return (
-    <section id="rooms" style={{ padding: "40px", backgroundColor: "#1a1a1a", color: "#fff" }}>
+    <section id="rooms" className="py-12 bg-[#1a1a1a] text-white relative">
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        style={{ textAlign: "center", fontSize: "32px", marginBottom: "20px" }}
+        className="text-3xl text-center mb-4"
       >
         Our Luxury Rooms
       </motion.h2>
@@ -135,90 +184,73 @@ const Rooms = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         viewport={{ once: true }}
-        style={{ textAlign: "center", color: "#ccc", marginBottom: "40px" }}
+        className="text-center text-gray-300 mb-10"
       >
         Choose from our beautiful rooms with all modern facilities.
       </motion.p>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center" }}>
-        {rooms.map((room, index) => (
-          <motion.div
-            key={room.id}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            viewport={{ once: true }}
-            onClick={() => setSelectedRoom(room.id)}
-            style={{
-              width: "300px",
-              backgroundColor: "#2a2a2a",
-              border: "1px solid #444",
-              borderRadius: "10px",
-              overflow: "hidden",
-              cursor: "pointer",
-              transition: "transform 0.3s"
-            }}
-          >
-            <div style={{ position: "relative" }}>
-              <img 
-                src={room.image} 
-                alt={room.name}
-                style={{ width: "100%", height: "200px", objectFit: "cover" }}
-              />
-              <div style={{
-                position: "absolute", top: 10, right: 10,
-                backgroundColor: "gold", color: "#1a1a1a", padding: "5px 10px", borderRadius: "10px"
-              }}>
-                {room.price}/night
-              </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleLike(room.id);
-                }}
-                style={{
-                  position: "absolute", top: 10, left: 10,
-                  backgroundColor: "white", border: "none", borderRadius: "50%", padding: "5px"
-                }}
-              >
-                <Heart 
-                  size={20} 
-                  color={likedRooms.includes(room.id) ? "red" : "gray"} 
-                  fill={likedRooms.includes(room.id) ? "red" : "none"}
-                />
-              </button>
-              <div style={{
-                position: "absolute", bottom: 10, left: 10,
-                backgroundColor: "white", padding: "3px 8px", borderRadius: "10px"
-              }}>
-                <Star size={14} color="orange" fill="orange" /> {room.rating}
-              </div>
-            </div>
-
-            <div style={{ padding: "15px" }}>
-              <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>{room.name}</h3>
-              <p style={{ color: "#ccc", marginBottom: "10px" }}>{room.description}</p>
-              <p style={{ marginBottom: "10px", display: "flex", alignItems: "center" }}>
-                <Users size={16} style={{ marginRight: "5px" }} />
-                {room.capacity}
-              </p>
-
-              <p><strong>Amenities:</strong></p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "15px" }}>
-                {room.amenities.map((a, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: "5px", backgroundColor: "#444", padding: "5px 10px", borderRadius: "20px" }}>
-                    {getAmenityIcon(a)}
-                    <span style={{ fontSize: "12px" }}>{a}</span>
-                  </div>
-                ))}
+      <div className="relative">
+        <button onClick={scrollLeft} className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+          <ChevronLeft size={24} />
+        </button>
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-auto gap-6 px-6 scrollbar-hide scroll-smooth"
+          style={{ scrollBehavior: 'smooth' }}
+        >
+          {rooms.map((room, index) => (
+            <motion.div
+              key={room.id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              onClick={() => setSelectedRoom(room.id)}
+              className="min-w-[280px] bg-[#2a2a2a] border border-[#444] rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition"
+            >
+              <div className="relative">
+                <img src={room.image} alt={room.name} className="w-full h-48 object-cover" />
+                <div className="absolute top-2 right-2 bg-yellow-400 text-black px-2 py-1 text-sm rounded">{room.price}/night</div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleLike(room.id);
+                  }}
+                  className="absolute top-2 left-2 bg-white p-1 rounded-full"
+                >
+                  <Heart
+                    size={18}
+                    color={likedRooms.includes(room.id) ? "red" : "gray"}
+                    fill={likedRooms.includes(room.id) ? "red" : "none"}
+                  />
+                </button>
+                <div className="absolute bottom-2 left-2 bg-white px-2 py-1 text-sm rounded flex items-center gap-1">
+                  <Star size={14} color="orange" fill="orange" /> {room.rating}
+                </div>
               </div>
 
-              <button style={{ width: "100%", padding: "10px", backgroundColor: "gold", color: "#1a1a1a", border: "none", borderRadius: "5px" }}>
-                Book Now
-              </button>
-            </div>
-          </motion.div>
-        ))}
+              <div className="p-6">
+                <div className='h-[180px]'>
+                <h3 className="text-lg font-semibold mb-2">{room.name}</h3>
+                <p className="text-sm text-gray-300 mb-2">{room.description}</p>
+                <p className="flex items-center text-sm mb-2"><Users size={14} className="mr-2" />{room.capacity}</p>
+                <div className="flex flex-wrap gap-2">
+                  {room.amenities.map((a, i) => (
+                    <div key={i} className="flex items-center gap-1 bg-[#444] px-2 py-1 text-xs rounded-full">
+                      {getAmenityIcon(a)}
+                      <span>{a}</span>
+                    </div>
+                  ))}
+                </div>
+                </div>
+                <button className="w-full mt-4 bg-yellow-400 text-black py-1 rounded">Book Now</button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        <button onClick={scrollRight} className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-700 hover:bg-gray-600 p-2 rounded-full">
+          <ChevronRight size={24} />
+        </button>
       </div>
 
       <AnimatePresence>

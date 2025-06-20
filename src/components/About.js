@@ -72,6 +72,7 @@ const About = () => {
       className="py-20 bg-gray-900 text-white scroll-mt-32"
     >
       <div className="max-w-6xl mx-auto px-4">
+        {/* Heading + Summary */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -80,12 +81,13 @@ const About = () => {
         >
           <h2 className="text-4xl font-bold mb-4">About The Heera Divine</h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Welcome to The Heera Divine Hotel. We offer a perfect blend of luxury and comfort. 
-            For over 15 years, we've been known for excellent service. Our rooms, staff, and 
-            hospitality aim to make your stay comfortable and memorable.
+            Welcome to <span className="text-amber-400 font-semibold">The Heera Divine</span>, your serene escape into elegance and warmth.
+            For over 15 years, we've been redefining hospitality with personalized service, elegant luxury rooms, 24/7 service, and unbeatable guest satisfaction.
+            Discover an unforgettable stay where comfort meets class.
           </p>
         </motion.div>
 
+        {/* Counters */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -107,6 +109,7 @@ const About = () => {
           ))}
         </motion.div>
 
+        {/* Image + Rating */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -123,6 +126,36 @@ const About = () => {
           </div>
         </motion.div>
 
+        {/* Image Gallery - Horizontal Scroll */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <h3 className="text-2xl font-bold text-center mb-8">Gallery</h3>
+          <div className="overflow-x-auto scrollbar-hide">
+            <div className="flex gap-4 px-2 min-w-full">
+              {[
+                "https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/261395/pexels-photo-261395.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800"
+              ].map((img, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ scale: 1.05 }}
+                  className="min-w-[280px] h-64 rounded-xl overflow-hidden shadow-lg"
+                >
+                  <img src={img} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Features */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
