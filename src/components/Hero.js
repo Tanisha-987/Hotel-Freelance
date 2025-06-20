@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Star, Award, Users, Calendar, ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,15 +36,31 @@ const Hero = () => {
 
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
-          <h1 className={`text-5xl md:text-7xl font-bold mb-6 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <motion.h1 
+            initial={{ opacity: 0, y: -50 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 1 }}
+            className="text-5xl md:text-7xl font-bold mb-6"
+          >
             Welcome to
             <span className="block text-amber-400">The Heera Divine</span>
-          </h1>
-          <p className={`text-xl md:text-2xl mb-8 text-gray-200 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          </motion.h1>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 30 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 1.2 }}
+            className="text-xl md:text-2xl mb-8 text-gray-200"
+          >
             Experience luxury redefined with world-class amenities and exceptional hospitality
-          </p>
-          
-          <div className={`flex flex-col sm:flex-row gap-4 justify-center mb-12 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            transition={{ delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+          >
             <button 
               onClick={scrollToRooms}
               className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-transform duration-300 transform hover:scale-105"
@@ -56,9 +73,14 @@ const Hero = () => {
             >
               Explore Rooms
             </button>
-          </div>
+          </motion.div>
 
-          <div className={`grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: 1.2 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16"
+          >
             {[
               { icon: Star, value: "5.0", label: "Rating" },
               { icon: Award, value: "50+", label: "Awards" },
@@ -77,13 +99,19 @@ const Hero = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer" onClick={scrollToRooms}>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ delay: 1.4 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+        onClick={scrollToRooms}
+      >
         <ChevronDown className="text-white hover:text-amber-400" size={32} />
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,97 +14,102 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const yOffset = -80; // Adjust this if header height changes
+      const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
       setIsMenuOpen(false);
     }
   };
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration 500 ${isScrolled ? 'bg-gray-800 shadow-xl' : 'bg-gray-900 shadow-lg'}`}>
-      <div className={`bg-amber-600 text-white transition-all duration-300 ${isScrolled ? 'py-1' : 'py-2'}`}>
-        <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-1 cursor-pointer">
-              <Phone size={14} className="animate-pulse" />
-              <span>+91 9876543210</span>
-            </div>
-            <div className="flex items-center space-x-1 cursor-pointer">
-              <Mail size={14} className="animate-bounce" />
-              <span>info@heeradivinehotel.com</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-1 cursor-pointer">
-            <MapPin size={14} className="animate-pulse" />
-            <span>Luxury Location, City Center</span>
-          </div>
-        </div>
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6 }}
+      className={`fixed w-full top-0 z-50 transition-all ${
+        isScrolled ? 'bg-gray-900/80 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      }`}
+    >
+      {/* Top Info Bar */}
+      <div className="w-full text-center text-sm text-white bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 py-2 hidden sm:block">
+        <span className="text-gray-300">
+          📞 Call us at <strong className="text-amber-400">+91 98765 43210</strong> or 📧 email{' '}
+          <strong className="text-amber-400">info@heeradivinehotel.com</strong>
+        </span>
       </div>
 
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex justify-between items-center">
-          <div 
-            className="flex items-center space-x-2 cursor-pointer"
-            onClick={() => scrollToSection('home')}
-          >
-            <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-700 rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-xl">H</span>
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-200">The Heera Divine</h1>
-              <p className="text-sm text-gray-400">Luxury Hotel & Resort</p>
-            </div>
+      {/* Main Navbar */}
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        {/* Logo */}
+        <motion.div
+          whileTap={{ scale: 0.95 }}
+          onClick={() => scrollToSection('home')}
+          className="flex items-center gap-3 cursor-pointer"
+        >
+          <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-full flex items-center justify-center shadow-md">
+            <span className="text-white font-extrabold text-2xl">H</span>
           </div>
+          <div>
+            <h1 className="text-3xl font-extrabold text-white leading-tight">The Heera Divine</h1>
+            <p className="text-sm text-gray-300 -mt-1">Luxury Hotel & Resort</p>
+          </div>
+        </motion.div>
 
-          <nav className="hidden md:flex space-x-8">
-            {[
-              { name: 'Home', id: 'home' },
-              { name: 'Rooms', id: 'rooms' },
-              { name: 'About', id: 'about' },
-              { name: 'Contact', id: 'contact' }
-            ].map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="text-gray-200 hover:text-amber-400 font-medium transition-all duration-300 py-2 px-4 rounded-lg"
-              >
-                {item.name}
-              </button>
-            ))}
-          </nav>
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex gap-10 items-center">
+          {[
+            { name: 'Home', id: 'home' },
+            { name: 'Rooms', id: 'rooms' },
+            { name: 'About', id: 'about' },
+            { name: 'Contact', id: 'contact' }
+          ].map((item) => (
+            <motion.button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              whileHover={{ scale: 1.1 }}
+              className="text-white text-lg font-semibold hover:text-amber-400 transition"
+            >
+              {item.name}
+            </motion.button>
+          ))}
+        </nav>
 
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-700 transition-colors duration-300"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        <div className={`md:hidden overflow-hidden transition-all duration-500 ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
-          <nav className="mt-4 pb-4 border-t pt-4">
-            <div className="flex flex-col space-y-4">
-              {[
-                { name: 'Home', id: 'home' },
-                { name: 'Rooms', id: 'rooms' },
-                { name: 'About', id: 'about' },
-                { name: 'Contact', id: 'contact' }
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-left text-gray-200 hover:text-amber-400 font-medium transition-all duration-300 py-2 px-4 rounded-lg"
-                >
-                  {item.name}
-                </button>
-              ))}
-            </div>
-          </nav>
-        </div>
+        {/* Mobile Toggle */}
+        <button
+          className="md:hidden p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <X size={26} className="text-white" /> : <Menu size={26} className="text-white" />}
+        </button>
       </div>
-    </header>
+
+      {/* Mobile Nav */}
+      <motion.div
+        initial={{ height: 0 }}
+        animate={{ height: isMenuOpen ? 'auto' : 0 }}
+        className="md:hidden overflow-hidden bg-gray-900/95 backdrop-blur-md transition-all duration-300"
+      >
+        <nav className="flex flex-col gap-4 py-4 px-6">
+          {[
+            { name: 'Home', id: 'home' },
+            { name: 'Rooms', id: 'rooms' },
+            { name: 'About', id: 'about' },
+            { name: 'Contact', id: 'contact' }
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="text-left text-white text-lg font-semibold hover:text-amber-400 transition"
+            >
+              {item.name}
+            </button>
+          ))}
+        </nav>
+      </motion.div>
+    </motion.header>
   );
 };
 

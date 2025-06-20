@@ -43,95 +43,130 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-20 bg-gray-900 text-white">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-6xl">
         <h2 className="text-4xl font-bold text-center mb-4">Get In Touch</h2>
-        <p className="text-xl text-center mb-8">Ready to experience luxury? Contact us for reservations or any inquiries.</p>
+        <p className="text-xl text-center text-gray-400 mb-12">
+          Ready to experience luxury? Contact us for reservations or any inquiries.
+        </p>
 
-        <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
-          <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block mb-2">First Name</label>
-              <input 
-                type="text" 
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-                className="w-full border rounded p-2 bg-gray-700 text-white"
-                placeholder="Your first name"
-                required
-              />
+        <div className="grid md:grid-cols-2 gap-10">
+          {/* Contact Information */}
+          <div className="space-y-6">
+            <div className="bg-gray-800 p-6 rounded-lg shadow hover:shadow-xl transition">
+              <div className="flex items-center gap-4">
+                <MapPin className="text-amber-500" size={24} />
+                <div>
+                  <h4 className="text-lg font-semibold">Address</h4>
+                  <p className="text-gray-400">123 Heera Street, Jaipur, Rajasthan, India</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <label className="block mb-2">Last Name</label>
-              <input 
-                type="text" 
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                className="w-full border rounded p-2 bg-gray-700 text-white"
-                placeholder="Your last name"
-                required
-              />
+
+            <div className="bg-gray-800 p-6 rounded-lg shadow hover:shadow-xl transition">
+              <div className="flex items-center gap-4">
+                <Phone className="text-amber-500" size={24} />
+                <div>
+                  <h4 className="text-lg font-semibold">Phone</h4>
+                  <p className="text-gray-400">+91 98765 43210</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <label className="block mb-2">Email</label>
-              <input 
-                type="email" 
+
+            <div className="bg-gray-800 p-6 rounded-lg shadow hover:shadow-xl transition">
+              <div className="flex items-center gap-4">
+                <Mail className="text-amber-500" size={24} />
+                <div>
+                  <h4 className="text-lg font-semibold">Email</h4>
+                  <p className="text-gray-400">contact@theheeradivine.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h3 className="text-2xl font-bold mb-6 border-b border-gray-700 pb-2">Send us a Message</h3>
+            <form onSubmit={handleSubmit} className="grid gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  placeholder="First Name"
+                  required
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+
+              <input
+                type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full border rounded p-2 bg-gray-700 text-white"
-                placeholder="your.email@example.com"
+                className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                placeholder="Your Email"
                 required
               />
-            </div>
-            <div>
-              <label className="block mb-2">Phone</label>
-              <input 
-                type="tel" 
+
+              <input
+                type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full border rounded p-2 bg-gray-700 text-white"
-                placeholder="+91 9876543210"
+                className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                placeholder="Phone Number"
                 required
               />
-            </div>
-            <div>
-              <label className="block mb-2">Subject</label>
-              <select 
+
+              <select
                 name="subject"
                 value={formData.subject}
                 onChange={handleInputChange}
-                className="w-full border rounded p-2 bg-gray-700 text-white"
+                className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 <option>Room Reservation</option>
                 <option>General Inquiry</option>
                 <option>Event Booking</option>
                 <option>Feedback</option>
               </select>
-            </div>
-            <div>
-              <label className="block mb-2">Message</label>
-              <textarea 
-                rows={4}
+
+              <textarea
+                rows="4"
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                className="w-full border rounded p-2 bg-gray-700 text-white"
-                placeholder="Tell us how we can help you..."
+                className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                placeholder="Your message..."
                 required
               ></textarea>
-            </div>
-            <button 
-              type="submit"
-              disabled={isSubmitting}
-              className={`w-full py-2 rounded text-white ${isSubmitting ? 'bg-gray-600' : 'bg-amber-600 hover:bg-amber-700'}`}
-            >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </button>
-          </form>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full py-3 font-semibold rounded transition ${
+                  isSubmitting
+                    ? 'bg-gray-600 cursor-not-allowed'
+                    : 'bg-amber-600 hover:bg-amber-700'
+                }`}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </button>
+
+              {submitStatus === 'success' && (
+                <p className="text-green-500 text-center mt-2">Message sent successfully!</p>
+              )}
+            </form>
+          </div>
         </div>
       </div>
     </section>
