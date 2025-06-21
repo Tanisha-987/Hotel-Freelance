@@ -40,7 +40,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: -50 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 1 }}
-            className="text-3xl md:text-7xl tracking-wide font-semibold mb-6"
+            className="text-3xl mt-6 md:text-7xl tracking-wide font-semibold mb-6"
           >
             Welcome to
             <span className="block font-bold tracking-wide text-amber-400">The Heera Divine</span>
