@@ -110,7 +110,7 @@ const Hero = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
         onClick={scrollToRooms}
       >
-        <ChevronDown className="text-white hover:text-amber-400" size={32} />
+        <ChevronDown className="text-white hidden md:block hover:text-amber-400" size={32} />
       </motion.div>
     </section>
   );
