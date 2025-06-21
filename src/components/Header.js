@@ -60,8 +60,8 @@ const Header = () => {
           </div>
 
           <div>
-            <h1 className="text-3xl font-semibold tracking-wide  text-white font-sans leading-tight">THE HEERA DIVINE</h1>
-            <p className="text-sm text-gray-300 -mt-1">Luxury Hotel & Resort</p>
+            <h1 className="md:text-2xl lg:text-3xl font-semibold tracking-wide text-white font-sans leading-tight">THE HEERA DIVINE</h1>
+            <p className="text-xs md:text-sm text-gray-300 -mt-1">Luxury Hotel & Resort</p>
           </div>
         </motion.div>
 

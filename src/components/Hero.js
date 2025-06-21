@@ -40,7 +40,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: -50 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 1 }}
-            className="text-4xl md:text-7xl tracking-wide font-semibold mb-6"
+            className="text-3xl md:text-7xl tracking-wide font-semibold mb-6"
           >
             Welcome to
             <span className="block font-bold tracking-wide text-amber-400">The Heera Divine</span>
@@ -50,7 +50,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 1.2 }}
-            className="text-xl md:text-2xl mb-8 text-gray-200"
+            className="text-lg md:text-2xl mb-8 text-gray-200"
           >
             Experience luxury redefined with world-class amenities and exceptional hospitality
           </motion.p>
